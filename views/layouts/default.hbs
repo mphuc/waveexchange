@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" >
+      <link rel="icon" type="image/png" href="/images/logo.png" >
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+      <meta name="description" content="Wavecoin">
+      <title>{{ title }} | Wavecoin</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width" >
+      <link href="/static/css/bootstrap.min.css" rel="stylesheet" >
+      <link href="/static/css/addon.css" rel="stylesheet" >
+      <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+      <link href="/css/sweetalert.css" rel="stylesheet" >
+      <link href="/static/css/jquery.toast.css" rel="stylesheet">
+      <link href="/static/css/corecss.css" rel="stylesheet">
+      <link href="/static/css/customer.css" rel="stylesheet">
+   </head>
+   <body ng-app='myApp'>
+      <div id="pad-wrapper" >
+      <div class="clearfix"></div>
+      <div id="header-navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+         <div class="container-fluid container-header">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="pull-left" href="/Market/home" >    
+                  <img width="40" style="margin-top: 2px;" src="/images/logo.png" alt="logo" class="img-responsive">
+               </a>
+            </div>
+            <div class="navbar-collapse collapse">
+               {{#if_eq has_login false}}
+               <ul class="nav navbar-nav navbar-right">
+                  <li id="dash_menu_wallet">
+                     <a href="/Market/Fees">
+                     <i class="fa fa-usd"></i>
+                     <span class="hidden-sm">&nbsp; Fees</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="/signun">
+                     <i class="fa fa-users"></i>
+                     <span>&nbsp; Register</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="/signIn">
+                     <i class="fa fa-sign-in"></i>
+                     <span>&nbsp; Login</span>
+                     </a>
+                  </li>
+               </ul>
+               
+               {{else}}
+               <ul class="nav navbar-nav navbar-right">
+                  <li id="dash_menu_wallet">
+                     <a href="/Market/home">
+                     <i class="fa fa-dashboard"></i>
+                     <span class="hidden-sm">&nbsp; Market</span>
+                     </a>
+                  </li>
+                  <li id="dash_menu_wallet">
+                     <a href="/Market/Order">
+                     <i class="fa fa-calendar"></i>
+                     <span class="hidden-sm">&nbsp; Order</span>
+                     </a>
+                  </li>
+                  <li id="dash_menu_wallet">
+                     <a href="/balance">
+                     <i class="fa fa-cloud-download"></i>
+                     <span class="hidden-sm">&nbsp; Wallet</span>
+                     </a>
+                  </li>
+                  
+                  <li id="dash_menu_wallet">
+                     <a href="/Market/Fees">
+                     <i class="fa fa-usd"></i>
+                     <span class="hidden-sm">&nbsp; Fees</span>
+                     </a>
+                  </li>
+
+                  <li id="dash_menu_wallet">
+                     <a href="/setting">
+                     <i class="fa fa-gear"></i>
+                     <span class="hidden-sm">&nbsp; Setting</span>
+                     </a>
+                  </li>
+                  <li id="dash_menu_wallet">
+                     <a href="/support">
+                     <i class="fa fa-support"></i>
+                     <span class="hidden-sm">&nbsp; Support</span>
+                     </a>
+                  </li>
+                  
+                  <li id="dash_menu_settings">
+                     <a href="/logout">
+                     <i class="fa fa-sign-out"></i>
+                     <span class="hidden-sm">&nbsp; Logout</span>
+                     </a>
+                  </li>
+               </ul>
+               {{/if_eq}}
+            </div>
+         </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="">
+         <div class="clearfix"></div>
+
+            {{{ body }}}
+         
+      </div>
+      <div id="myModalss" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal fade modal_exchange" id="modal_buy_Exchange" tabindex="-1" role="dialog" aria-labelledby="ModalDeposit-label">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                     <h4 class="modal-title" id="ModalDeposit-label">Buy {{MarketName}}</h4>
+                  </div>
+                  <form id="Form-submit-buy-exchange" method="POST" action="/Market/submit-buy">
+                     <input type="hidden" class="token_crt" name="token_crt">
+                     <input type="hidden" name="MarketName" value="{{MarketName}}" />
+                     <div class="modal-body">
+                        <div class="text-center">
+                           <div class="row" style="margin-bottom:20px">
+                              <div class="col-sm-offset-1 col-sm-2">
+                                 <h4 style="font-weight:bold">Type:</h4>
+                              </div>
+                              <div class="col-sm-3">
+                                 <h4 data-bind="text:orderTypeMsg">Buy {{exchange}}</h4>
+                              </div>
+                              <div class="col-sm-2">
+                                 <h4 style="font-weight:bold">Market:</h4>
+                              </div>
+                              <div class="col-sm-3">
+                                 <h4>{{MarketName}}</h4>
+                              </div>
+                           </div>
+                           <div id="form-container">
+                  <form role="form" class="form-horizontal" id="submit_buy_exchange">
+                  <div class="form-group" style="margin-bottom:10px;float: left;">
+                  <h5 class="col-sm-offset-1 col-sm-3">
+                  Quantity:
+                  </h5>
+                  <div class="col-sm-7">
+                  <div class="input-group">
+                  <input class="form-control text-right" name="quantity" type="text" readonly="readonly" value="0">
+                  <span class="input-group-addon">{{exchange}}</span>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group" style="margin-bottom:10px;float: left;">
+                  <h5 class="col-sm-offset-1 col-sm-3">
+                  Price:
+                  </h5>
+                  <div class="col-sm-7">
+                  <div class="input-group">
+                  <input class="form-control text-right" name="price" type="text"  readonly="readonly" value="0">
+                  <span class="input-group-addon">{{namecoin}}</span>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group" style="margin-bottom:10px;float: left;">
+                  <h5 class="col-sm-offset-1 col-sm-3">
+                  Subtotal:
+                  </h5>
+                  <div class="col-sm-7">
+                  <div class="input-group">
+                  <input class="form-control text-right" name="subtotal" type="text" readonly="readonly" value="0">
+                  <span class="input-group-addon">{{namecoin}}</span>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group" style="margin-bottom:10px;float: left;">
+                  <h5 class="col-sm-offset-1 col-sm-3">
+                  Commission:
+                  </h5>
+                  <div class="col-sm-7">
+                  <div class="input-group">
+                  <input class="form-control text-right" name="commission" type="text" readonly="readonly" value="0">
+                  <span class="input-group-addon">{{namecoin}}</span>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group" style="margin-bottom:10px;float: left;">
+                  <h5 class="col-sm-offset-1 col-sm-3">
+                  Total:
+                  </h5>
+                  <div class="col-sm-7">
+                  <div class="input-group">
+                  <input class="form-control text-right" name="total" type="text" readonly="readonly" value="0">
+                  <span class="input-group-addon">{{namecoin}}</span>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+                  <div class="bs-callout bs-callout-warning">
+                     <h4>Disclaimer</h4>
+                     <p>Please verify this order before confirming. All orders are final once submitted and we will be unable to issue you a refund.</p>
+                  </div>
+
+                  <div class="clearfix"></div>
+                  <div class="alert alert-danger alert-dismissable error_submit_buy" style="display: none;"></div>
+                  <div class="clearfix"></div>
+                  
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary has-spinner btn-submit-exchain"  style="">
+                  <span class="spinner"><i style="display: none;" class="fa fa-spinner fa-pulse"></i></span>
+                  <confirm>Confirm</confirm>
+                  </button>
+                  </div>
+                  <div class="clearfix"></div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade modal_exchange" id="modal_sell_Exchange" tabindex="-1" role="dialog" aria-labelledby="ModalDeposit-label">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                     <h4 class="modal-title" id="ModalDeposit-label">Sell {{MarketName}}</h4>
+                  </div>
+                  <form id="Form-submit-sell-exchange" method="POST" action="/Market/submit-sell">
+                     <input type="hidden" class="token_crt" name="token_crt">
+                     <input type="hidden" name="MarketName" value="{{MarketName}}" />
+                     <div class="modal-body">
+                        <div class="text-center">
+                           <div class="row" style="margin-bottom:20px">
+                              <div class="col-sm-offset-1 col-sm-2">
+                                 <h4 style="font-weight:bold">Type:</h4>
+                              </div>
+                              <div class="col-sm-3">
+                                 <h4 data-bind="text:orderTypeMsg">Sell {{exchange}}</h4>
+                              </div>
+                              <div class="col-sm-2">
+                                 <h4 style="font-weight:bold">Market:</h4>
+                              </div>
+                              <div class="col-sm-3">
+                                 <h4>{{MarketName}}</h4>
+                              </div>
+                           </div>
+                           <div class="bs-callout bs-callout-info" style="display: none;" data-bind="visible:orderIsConditional">
+                              <h4>Condition</h4>
+                              <p data-bind="text:orderConditionMsg"></p>
+                           </div>
+                           <div id="form-container">
+                              <div class="form-group" style="margin-bottom:10px; float: left;">
+                                 <h5 class="col-sm-offset-1 col-sm-3">
+                                    Quantity:
+                                 </h5>
+                                 <div class="col-sm-7">
+                                    <div class="input-group">
+                                       <input class="form-control text-right" name="quantity" type="text" readonly="readonly" value="0">
+                                       <span class="input-group-addon">{{exchange}}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group" style="margin-bottom:10px; float: left;">
+                                 <h5 class="col-sm-offset-1 col-sm-3">
+                                    Price:
+                                 </h5>
+                                 <div class="col-sm-7">
+                                    <div class="input-group">
+                                       <input class="form-control text-right" name="price" type="text"  readonly="readonly" value="0">
+                                       <span class="input-group-addon">{{namecoin}}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group" style="margin-bottom:10px; float: left;">
+                                 <h5 class="col-sm-offset-1 col-sm-3">
+                                    Subtotal:
+                                 </h5>
+                                 <div class="col-sm-7">
+                                    <div class="input-group">
+                                       <input class="form-control text-right" name="subtotal" type="text" readonly="readonly" value="0">
+                                       <span class="input-group-addon">{{namecoin}}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group" style="margin-bottom:10px; float: left;">
+                                 <h5 class="col-sm-offset-1 col-sm-3">
+                                    Commission:
+                                 </h5>
+                                 <div class="col-sm-7">
+                                    <div class="input-group">
+                                       <input class="form-control text-right" name="commission" type="text" readonly="readonly" value="0">
+                                       <span class="input-group-addon">{{namecoin}}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group" style="margin-bottom:10px; float: left;">
+                                 <h5 class="col-sm-offset-1 col-sm-3">
+                                    Total:
+                                 </h5>
+                                 <div class="col-sm-7">
+                                    <div class="input-group">
+                                       <input class="form-control text-right" name="total" type="text" readonly="readonly" value="0">
+                                       <span class="input-group-addon">{{namecoin}}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="clearfix"></div>
+                           <div class="bs-callout bs-callout-warning">
+                              <h4>Disclaimer</h4>
+                              <p>Please verify this order before confirming. All orders are final once submitted and we will be unable to issue you a refund.</p>
+                           </div>
+
+                           <div class="clearfix"></div>
+                           <div class="alert alert-danger alert-dismissable error_submit_sell" style="display: none;"></div>
+                           <div class="clearfix"></div>
+                           
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary has-spinner btn-submit-exchain"  style="">
+                           <span class="spinner"><i style="display: none;" class="fa fa-spinner fa-pulse"></i></span>
+                           <confirm>Confirm</confirm>
+                        </button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div id="modalDepositBTC" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">DEPOSIT BITCOIN (BTC)</h4>
+               </div>
+               <div class="modal-body text-center">
+                  <div class="wallets"></div>
+                  <div class="clearfix"></div>
+               </div>
+               <div class="col-sm-12" data-bind="visible:wallet.showDepositCallOut">
+                <div class="bs-callout bs-callout-danger"><p><strong>Please send to the correct Bitcoin address. We are not responsible for your lost.</strong></p></div>
+               </div>
+               <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+            </div>
+         </div>
+      </div>
+      <div id="modalDepositETH" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">DEPOSIT ETHEREUM (ETH)</h4>
+               </div>
+               <div class="modal-body text-center">
+                  <div class="wallets"></div>
+                  <div class="clearfix"></div>
+               </div>
+               <div class="col-sm-12" data-bind="visible:wallet.showDepositCallOut">
+                <div class="bs-callout bs-callout-danger"><p><strong>Please send to the correct Ethereum address. We are not responsible for your lost.</strong></p></div>
+               </div>
+               <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+            </div>
+         </div>
+      </div>
+      <div id="modalDepositCOIN" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Deposit Wavecoin (WAVE)</h4>
+               </div>
+               <div class="modal-body text-center">
+                  <div class="wallets"></div>
+                  <div class="clearfix"></div>
+               </div>
+               <div class="col-sm-12" data-bind="visible:wallet.showDepositCallOut">
+                <div class="bs-callout bs-callout-danger"><p><strong>Please send to the correct Wavecoin address. We are not responsible for your lost.</strong></p></div>
+               </div>
+               
+               <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+            </div>
+         </div>
+      </div>
+      <div id="modalWithdrawBTC" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">CURRENTLY AVAILABLE: <b class="amount_btc">{{ satoshi user.balance.bitcoin_wallet.available}}</b> BTC</h4>
+               </div>
+               
+               <form method="post" name="frmWihtdrawBTC" accept-charset="utf-8" id="frmWihtdrawBTC" class="send-coin-form" autocomplete="off" novalidate="novalidate">
+                  <div class="modal-body">
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Address</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="address" id="address"><span class="input-group-addon">ADDR</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Quantity</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="amount" id="amount"><span class="input-group-addon">BTC</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Tx Fee</label>
+                        <div class="input-group"><input type="text" readonly class="form-control amount_usd" name="fee" id="fee" value="0.001"><span class="input-group-addon">BTC</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Withdrawal</label>
+                        <div class="input-group"><input readonly type="text" class="form-control amount_usd" name="amount_withdraw" id="amount_withdraw"><span class="input-group-addon">BTC</span></div>
+                     </div>
+                    
+                  </div>
+                  <div class="modal-footer"><button type="submit" class="btn btn-social btn-fill btn-twitter frmWihtdrawBCH_Submit" data-type="coin"><i class="fa fa-cloud-upload" data-icon="fa-bitcoin" style="background-position: right;filter: brightness(0) invert(1)"></i> Withdrawal</button></div>
+               </form>
+               
+            </div>
+         </div>
+      </div>
+
+      <div id="modalWithdrawETH" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">CURRENTLY AVAILABLE: <b class="amount_btc">{{ satoshi user.balance.ethereum_wallet.available}}</b> ETH</h4>
+               </div>
+               
+               <form method="post" name="frmWihtdrawETH" accept-charset="utf-8" id="frmWihtdrawETH" class="send-coin-form" autocomplete="off" novalidate="novalidate">
+                  <div class="modal-body">
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Address</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="address" id="address"><span class="input-group-addon">ADDR</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Quantity</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="amount" id="amount"><span class="input-group-addon">ETH</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Tx Fee</label>
+                        <div class="input-group"><input type="text" readonly class="form-control amount_usd" name="fee" id="fee" value="0.001"><span class="input-group-addon">ETH</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Withdrawal</label>
+                        <div class="input-group"><input readonly type="text" class="form-control amount_usd" name="amount_withdraw" id="amount_withdraw"><span class="input-group-addon">ETH</span></div>
+                     </div>
+                    
+                  </div>
+                  <div class="modal-footer"><button type="submit" class="btn btn-social btn-fill btn-twitter frmWihtdrawBCH_Submit" data-type="coin"><i class="fa fa-cloud-upload" data-icon="fa-bitcoin" style="background-position: right;filter: brightness(0) invert(1)"></i> Withdrawal</button></div>
+               </form>
+               
+            </div>
+         </div>
+      </div>
+
+      <div id="modalWithdrawCOIN" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">CURRENTLY AVAILABLE:<b class="amount_COIN"> {{satoshi user.balance.coin_wallet.available}}</b> WAVE</h4>
+               </div>
+               <form method="post" action="/account/balance/withdraw-wave" accept-charset="utf-8" id="frmWihtdrawCOIN" class="send-coin-form" autocomplete="off" novalidate="novalidate">
+                  <div class="modal-body">
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Address</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="address" id="address"><span class="input-group-addon">ADDR</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Quantity</label>
+                        <div class="input-group"><input type="text" class="form-control amount_usd" name="amount" id="amount"><span class="input-group-addon">WAVE</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Tx Fee</label>
+                        <div class="input-group"><input type="text" readonly class="form-control amount_usd" name="fee" value="0.03" ><span class="input-group-addon">WAVE</span></div>
+                     </div>
+                     <div class="form-group">
+                        <label style="padding-left:0px" class="col-md-12">Withdrawal</label>
+                        <div class="input-group"><input readonly type="text" class="form-control amount_usd" name="amount_withdraw" id="amount_withdraw"><span class="input-group-addon">WAVE</span></div>
+                     </div>
+                     
+                  </div>
+                  <div class="modal-footer"><button type="submit" class="btn btn-social btn-fill btn-twitter frmWihtdrawBCH_Submit" data-type="coin"><i class="fa fa-cloud-upload" data-icon="fa-bitcoin" style="background-position: right;filter: brightness(0) invert(1)"></i> withdrawal</button></div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+      <div id="modalWithdrawConfirmCOIN" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Confirm WAVE Withdrawal</h4>
+               </div>
+               <form id="Confirm-Submit-COIN" action="/account/balance/withdraw" method="POST">
+               <input type="hidden" name="type" value="WAVE" />
+                  <div class="modal-body">
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5 data-bind="text:wallet.labelWithdrawalBaseAddress">Address</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="address" type="text" readonly="readonly" value="0"><span class="input-group-addon" >ADDR</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Transaction Fee:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" type="text" readonly="readonly" value="0.03"><span class="input-group-addon" >WAVE</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Total:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="amount" type="text" readonly="readonly" value="0"><span class="input-group-addon">WAVE</span></div>
+                        </div>
+                     </div>
+                     <div class="alert alert alert-danger alert-dismissable" style="display: none;"><a class="close" data-dismiss="alert">×</a><span class="message"></span></div>
+                     <input type="hidden" class="token_crt" name="token_crt"> {{#if_eq user.security.two_factor_auth.status '1'}}
+                     <blockquote style="margin: 0px;">
+                        <p style="font-size: 12px;">By inputting your two-factor authentication code, your withdrawal will process immediately.</p>
+                     </blockquote>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-10" style="margin-top:10px"><input type="text" name="authenticator" class="form-control" placeholder="6-digit authentication code" style=""></div>
+                     </div>
+                     {{/if_eq}}
+                  </div>
+                  <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="submit" class="btn btn-twitter btn-fill confirm_modal_btc">Confirm</button></div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div id="modalWithdrawConfirmBTC" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Confirm Bitcoin Withdrawal</h4>
+               </div>
+               <form id="Confirm-Submit-BTC" action="/account/balance/withdraw" method="POST">
+                <input type="hidden" name="type" value="BTC" />
+                  <div class="modal-body">
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5 data-bind="text:wallet.labelWithdrawalBaseAddress">Address</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="address" type="text" readonly="readonly" value="0"><span class="input-group-addon" >ADDR</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Transaction Fee:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" type="text" readonly="readonly" value="0.001"><span class="input-group-addon" >BTC</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Total:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="amount" type="text" readonly="readonly" value="0"><span class="input-group-addon">BTC</span></div>
+                        </div>
+                     </div>
+                     <input type="hidden" class="token_crt" name="token_crt">
+                     <div class="alert alert alert-danger alert-dismissable" style="display: none;"><a class="close" data-dismiss="alert">×</a><span class="message"></span></div>
+                     {{#if_eq user.security.two_factor_auth.status '1'}}
+                     <blockquote style="margin: 0px;">
+                        <p style="font-size: 12px;">By inputting your two-factor authentication code, your withdrawal will process immediately.</p>
+                     </blockquote>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-10" style="margin-top:10px"><input type="text" name="authenticator" class="form-control" placeholder="6-digit authentication code" style=""></div>
+                     </div>
+                     {{/if_eq}}
+                  </div>
+                  <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="submit" class="btn btn-twitter btn-fill confirm_modal_btc">Confirm</button></div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+      <div id="modalWithdrawConfirmETH" class="modal fade" role="dialog" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Confirm Ethereum Withdrawal</h4>
+               </div>
+               <form id="Confirm-Submit-ETH" action="/account/balance/withdraw" method="POST">
+                <input type="hidden" name="type" value="ETH" />
+                  <div class="modal-body">
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5 data-bind="text:wallet.labelWithdrawalBaseAddress">Address</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="address" type="text" readonly="readonly" value="0"><span class="input-group-addon" >ADDR</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Transaction Fee:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" type="text" readonly="readonly" value="0.001"><span class="input-group-addon" >ETH</span></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-3">
+                           <h5>Total:</h5>
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="input-group"><input class="form-control text-left" name="amount" type="text" readonly="readonly" value="0"><span class="input-group-addon">ETH</span></div>
+                        </div>
+                     </div>
+                     <input type="hidden" class="token_crt" name="token_crt">
+                     <div class="alert alert alert-danger alert-dismissable" style="display: none;"><a class="close" data-dismiss="alert">×</a><span class="message"></span></div>
+                     {{#if_eq user.security.two_factor_auth.status '1'}}
+                     <blockquote style="margin: 0px;">
+                        <p style="font-size: 12px;">By inputting your two-factor authentication code, your withdrawal will process immediately.</p>
+                     </blockquote>
+                     <div class="row">
+                        <div class="col-sm-offset-1 col-sm-10" style="margin-top:10px"><input type="text" name="authenticator" class="form-control" placeholder="6-digit authentication code" style=""></div>
+                     </div>
+                     {{/if_eq}}
+                  </div>
+                  <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="submit" class="btn btn-twitter btn-fill confirm_modal_btc">Confirm</button></div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="clearfix" style="margin-top: 100px;" ></div>
+         <footer id="footer-navigation" style="padding: 0" class="navbar navbar-inverse navbar-fixed-bottom">
+           <div class="container-fluid container-footer">
+               <div class="navbar-collapse collapse">
+                   <ul class="nav navbar-nav navbar-left">
+                       <li>
+                           <a>
+                               <span>© 2018 Wavecoin, INC</span>
+                           </a>
+                       </li>
+                   </ul>
+                   <ul class="nav navbar-nav navbar-right">
+                       <li>
+                           <a>
+                               <span id="price_eth_usdt"></span>
+                           </a>
+                       </li>
+                       <li>
+                           <a>
+                               <span id="price_btc_usdt"></span>
+                           </a>
+                       </li>
+                       <li>
+                           <a class="soket-status">
+                               <i class="fa fa-wifi socket-status-normal" style="color: #b94a48!important"></i>
+                               <span>Socket Status = Disconnect</span>
+                           </a>
+                       </li>
+                   </ul>
+               </div>
+           </div>
+       </footer>  
+      
+    
+      <script src="/static/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
+      <script src="/static/vendors/jquery-ui.min.js" type="text/javascript"></script><script src="/static/vendors/bootstrap.min.js" type="text/javascript"></script><script src="/static/vendors/material.min.js" type="text/javascript"></script><script src="/static/vendors/perfect-scrollbar.jquery.min.js" type="text/javascript"></script><script src="/static/vendors/jquery.bootstrap-wizard.js"></script><script src="/static/vendors/bootstrap-notify.js"></script><script src="/static/vendors/jquery-jvectormap.js"></script><script src="/static/vendors/jquery.datatables.js"></script><script src="/static/vendors/sweetalert/js/sweetalert2.min.js"></script><script src="/static/vendors/sweetalert/js/swal-forms.js"></script><script src="/static/vendors/jasny-bootstrap.min.js"></script><script src="/static/vendors/jquery.tagsinput.js"></script><script src="/static/js/amaze.js"></script><script src="/static/js/demo.js"></script>
+      
+      <script src="/static/js/clipboard.min.js"></script>
+
+      <script type="text/javascript" src="/js/jqBootstrapValidation.js"></script><script src="/static/js/main.js"></script><script src="/static/js/jstree.min.js"></script><script>var clipboard = new Clipboard('.copy');clipboard.on('success', function(e) { return true;});clipboard.on('error', function(e) {return false;});</script><script src="/static/js/jquery.form.js" type="text/javascript"></script> 
+
+      <script src="/socket.io/socket.io.js"></script>
+
+      <script src="/static/js/balance.js"></script>
+
+      <script src="/static/js/exchange.js"></script>
+      <script src="/js/sweetalert.js"></script> 
+      <script src="/static/exchange/angular.js"></script>
+      <script src="/static/exchange/ui-bootstrap-tpls-0.11.0.js"></script>
+      <script src="/static/exchange/controller.js"></script>
+      <script src="/static/js/jquery.toast.js" type="text/javascript"></script>
+      <script type="text/javascript">
+         $('.click_fullsecreen').click(function(e){
+             $('#fullscreen').toggleClass('fullscreen'); 
+         });
+      </script>
+      {{#if_eq menu "support"}} 
+      <script src="/static/js/support.js" type="text/javascript"></script>
+      <script src='https://www.google.com/recaptcha/api.js'></script>
+      {{/if_eq}}
+
+      <!-- <script type="text/javascript">
+        $('#myModalss').modal({
+            show: 'true'
+        }); 
+      </script> -->
+   </body>
+</html>

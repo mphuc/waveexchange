@@ -1,0 +1,44 @@
+<div class="form">
+   <div class="tab-content">
+      <div id="login">
+         <div class="text-center">
+            <img style="margin: 0 auto; display: block; margin-bottom: 45px;" class="responsive-img logo" width="120" src="../images/logo.png" alt="">
+         </div>
+         <form id="frmRegister" method="post" novalidate>
+            <div class="field-wrap">
+               <label>Username</label>
+               <input autocomplete="off" type="text" tabindex="1" class="form-control" name="displayName" id="displayName" placeholder="Please enter your username" required/>
+            </div>
+            <div class="field-wrap">
+               <label>Email</label>
+               <input autocomplete="off" type="text" tabindex="1" class="form-control" id="email" name="email" required placeholder="Please enter your email" />
+               
+            </div>
+            <div class="field-wrap">
+               <label>Password</label>
+               <input autocomplete="off" type="password" name="password" id="password" class="form-control" required placeholder="Please enter your password" />
+              
+            </div>
+            <div class="field-wrap">
+               <label>Confirm password</label>
+               <input autocomplete="off" type="password" name="cfpassword" id="cfpassword" class="form-control" required placeholder="Please enter confirm password" />
+               
+            </div>
+            <!-- <div class="field-wrap">
+               <label>Sponsor</label>
+               <input autocomplete="off" type="text" name="Sponsor" id="Sponsor" class="form-control" placeholder="Can enter or not" />
+               
+            </div> -->
+            <div class="center_capcha" style="margin-top: 25px;">
+               <div class="g-recaptcha" data-sitekey="6LerNmYUAAAAABdp7YUrRlXPH5JAlJG1x9zy6SE9" data-callback="enableBtn"></div>
+            </div>
+            <button type="submit" id="submit_button" disabled="disabled" class="button button-block btn-primary"/>Create Account</button>
+            <div style="text-align: center;margin-top: 15px;color: #fff">
+                Already have an account? <a href="/signin">Login</a> 
+            </div>
+         </form>
+         <div style="clear: both;"></div>
+      </div>
+         <div style="clear: both;"></div>
+   </div>
+</div>

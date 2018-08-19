@@ -1,0 +1,33 @@
+<div class="form">
+   <div class="tab-content">
+      <div id="login">
+         <div class="text-center">
+            <img style="margin: 0 auto; display: block; margin-bottom: 45px;" class="responsive-img logo" width="120" src="../images/logo.png" alt="">
+         </div>
+         <form id="frmResendmail" method="post" novalidate style="border: 1px solid #f7943a; padding: 20px; border-radius: 10px;">
+            <div class="box box-verify-email"   >
+               <div class="box-header-wrapper">
+                  <div class="box-header">
+                     <div class="logo">
+                        <div class="logo-png"><img src="/dashboard/img/exa-logo-white.png"></div>
+                     </div>
+                     <h1 class="c1 c6 c18 c14">Verify Your Email</h1>
+                  </div>
+               </div>
+               <input type="hidden" name="token" id="token" value="{{token}}">
+               <div class="box-content">
+                  <p class="c1 c10 c14" style="color: #fff">Thanks for signing up. Please confirm your email address is {{email}} to activate your account.</p>
+                  <div class="c96 c97 verify-mail-icon text-center">
+                     <svg style="width: 60px; margin: 0 auto" class="c47" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"></path>
+                     </svg>
+                  </div>
+                  <p class="c1 c10 c14" style="color: #fff">If you have not received the verification email, please check your "Spam" or "Bulk Email" folder. You can also click the resend button bellow to have another email sent to you.</p>
+                  <button tabindex="0" class="c69 c54 c61 form-button" type="submit" role="button"><span class="c56">Resend Activation Email</span><span class="c99"></span></button>
+               </div>
+            </div>
+         </form>
+      </div>
+      <div style="clear: both;"></div>
+   </div>
+</div>

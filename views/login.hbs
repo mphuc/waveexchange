@@ -1,0 +1,32 @@
+<div class="form">
+   <div class="tab-content">
+      <div id="login">
+         <div class="text-center">
+            <img style="margin: 0 auto; display: block; margin-bottom: 45px;" class="responsive-img logo" width="120" src="../images/logo.png" alt="">
+         </div>
+         <form id="frmLogin" method="post" novalidate>
+            <div class="input-wrapper">
+               <label for="username" class="label">Email<i class="ion-asterisk"></i></label>
+               <input type="text" name="email" id="email" class="form-control" autocomplete="off" required placeholder="Example@gmail.com"/>
+            </div>
+            <div class="input-wrapper">
+               <label for="username" class="label">Password<i class="ion-asterisk"></i></label>
+               <input type="password" name="password" id="password" class="form-control" required placeholder="Password" />
+            </div>
+            <div class="input-wrapper">
+               <label for="username" class="label">2FA Code<i class="ion-asterisk"></i></label>
+               <input type="text" name="2fa" id="2fa" class="form-control" placeholder="(Only if you enabled 2FA)" />
+            </div>
+            
+            <div class="center_capcha" style="margin-top: 25px;">
+               <div class="g-recaptcha" data-sitekey="6LerNmYUAAAAABdp7YUrRlXPH5JAlJG1x9zy6SE9" data-callback="enableBtn"></div>
+            </div>
+            <button type="submit" id="submit_button" disabled="disabled" class="button button-block"/>Log In</button>
+            <div style="text-align: center;margin-top: 15px;color: #fff">
+               <a href="/signup">Don't have an account?</a>&nbsp; &nbsp; | &nbsp; &nbsp;<a href="/forgot-password">Forgot password?</a> 
+            </div>
+         </form>
+      </div>
+      <div style="clear: both;"></div>
+   </div>
+</div>
