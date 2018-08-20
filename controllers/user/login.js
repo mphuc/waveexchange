@@ -523,5 +523,6 @@ module.exports = {
     ResendMailTempalte,
     ResendMailSubmit,
     ChangePassword,
-    ChangePasswordSubmit
+    ChangePasswordSubmit,
+    SignInAdmin
 }
