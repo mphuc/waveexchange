@@ -330,11 +330,10 @@ function LoadOrder_Open_Order(req,res){
 					'quantity': (parseFloat(results[i].quantity)/100000000).toFixed(8),
 					'commission' : (parseFloat(results[i].commission)/100000000).toFixed(8),
 					'total' : (parseFloat(results[i].total)/100000000).toFixed(8),
-					'MarketName' : result[i].MarketName,
+					'MarketName' : results[i].MarketName,
 					'remove' : results[i]._id+'_Sell'
 				});
 			}
-			console.log(new_data_user);
 			return res.status(200).send({result: new_data_user});
 		})
 		
