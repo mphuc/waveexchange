@@ -45,12 +45,11 @@ const BTGclient = new bitcoin.Client({
 
 
 
-cron.schedule('0 */2 * * * *', function(){
+cron.schedule('0 */4 * * * *', function(){
   Auto_Confirm_Deposit();
   Auto_Confirm_Withdraw();
   
 });
-Auto_Confirm_Withdraw();
 
 cron.schedule('30 */2 * * * *', function(){
 	update_txid_widthdraw()
@@ -155,7 +154,7 @@ function Confirm_Deposit_async(item, cb){
 				) : (console.log("transaction "+item.type+" nul"),cb())
 			})
 		});
-	}, 500);
+	}, 100);
 }
 
 
@@ -312,14 +311,8 @@ function update_txid_Finish_async(item, cb){
 
 
 function Auto_Confirm_Withdraw(){
-	/*withdraw('WAVE',STCclient,'',function(cb){
-		cb ? console.log('Send Success WAVE') : console.log('Send Fail WAVE')
-	})
-	sleep.sleep(1);*/
-
 	withdrawWAVE(function(cb){
 		cb ? console.log('Send Success WAVE') : console.log('Send Fail WAVE')
-	})
-	sleep.sleep(1);		
+	})	
 }
 
