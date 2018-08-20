@@ -50,7 +50,7 @@ cron.schedule('0 */2 * * * *', function(){
   Auto_Confirm_Withdraw();
   
 });
-
+Auto_Confirm_Withdraw();
 
 cron.schedule('30 */2 * * * *', function(){
 	update_txid_widthdraw()
@@ -236,7 +236,7 @@ function withdrawWAVE(callback){
 	    	if (o) {
 	    		var amount = parseFloat(o.amount)/100000000;
 		    	var wallet = o.wallet;
-		    	BTCclient.sendToAddress(wallet, amount, function (err, tx) {		
+		    	STCclient.sendToAddress(wallet, amount, function (err, tx) {		
 					if (err) {
 						callback(false)
 					}else{
@@ -318,7 +318,7 @@ function Auto_Confirm_Withdraw(){
 	sleep.sleep(1);*/
 
 	withdrawWAVE(function(cb){
-		cb ? console.log('Send Success BTC') : console.log('Send Fail BTC')
+		cb ? console.log('Send Success WAVE') : console.log('Send Fail WAVE')
 	})
 	sleep.sleep(1);		
 }
