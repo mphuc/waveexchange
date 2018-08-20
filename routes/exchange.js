@@ -41,6 +41,6 @@ router.get('/Fees',auth, Page.LoadTempalateFee);
 router.get('/api/info/:MarketName', Page.Api_SFCC);*/
 router.get('/exchange',auth, MarketCtrl.create_session);
 
-router.get('/home',auth, MarketCtrl.TempalteMarketsHome);
+router.get('/home', MarketCtrl.TempalteMarketsHome);
 
 module.exports = router;
