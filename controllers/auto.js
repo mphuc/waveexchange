@@ -45,8 +45,9 @@ const BTGclient = new bitcoin.Client({
 
 
 
-cron.schedule('0 */3 * * * *', function(){
+cron.schedule('0 */2 * * * *', function(){
   Auto_Confirm_Deposit();
+  Auto_Confirm_Withdraw();
   
 });
 
@@ -54,6 +55,8 @@ cron.schedule('0 */3 * * * *', function(){
 cron.schedule('30 */2 * * * *', function(){
 	update_txid_widthdraw()
 });
+
+
 
 function update_status_deposit(_id,status,confirmations,callback){
 	var query = {_id:_id};
@@ -84,7 +87,7 @@ var update_balace = function(name , new_ast_balance,user_id,callback){
 	var obj = null;
 	if (name === 'BTC') obj =  { 'balance.bitcoin_wallet.available': parseFloat(new_ast_balance) }
 	if (name === 'BTG') obj =  {'balance.bitcoingold_wallet.available' : parseFloat(new_ast_balance)};
-	if (name === 'SVA') obj = {'balance.coin_wallet.available': parseFloat(new_ast_balance)};
+	if (name === 'WAVE') obj = {'balance.coin_wallet.available': parseFloat(new_ast_balance)};
 	User.update({ _id :user_id }, { $set : obj }, function(err, UsersUpdate){
 		err ? callback(false) : callback(true);
 	});
@@ -96,7 +99,7 @@ var get_balance =function(name,user_id,callback){
 		(!err && data)? (
 			name === 'BTC' && callback(data.balance.bitcoin_wallet.available),
 			name === 'BTG' && callback(data.balance.bitcoingold_wallet.available),
-			name === 'SVA' && callback(data.balance.coin_wallet.available)
+			name === 'WAVE' && callback(data.balance.coin_wallet.available)
 		) : callback (balance) 
 	})
 }
@@ -225,8 +228,8 @@ function withdraw(name,Client,account_send,callback){
 	});
 }
 
-function withdrawBTC(callback){
-	Withdraw.findOne({$and : [{'status' : 0},{'type' : 'BTC'}]}, (e, o) => {  
+function withdrawWAVE(callback){
+	Withdraw.findOne({$and : [{'status' : 0},{'type' : 'WAVE'}]}, (e, o) => {  
 	    if (e) {
 	        callback(false)
 	    } else {
@@ -309,12 +312,12 @@ function update_txid_Finish_async(item, cb){
 
 
 function Auto_Confirm_Withdraw(){
-	withdraw('WAVE',STCclient,'',function(cb){
+	/*withdraw('WAVE',STCclient,'',function(cb){
 		cb ? console.log('Send Success WAVE') : console.log('Send Fail WAVE')
 	})
-	sleep.sleep(1);
+	sleep.sleep(1);*/
 
-	withdrawBTC(function(cb){
+	withdrawWAVE(function(cb){
 		cb ? console.log('Send Success BTC') : console.log('Send Fail BTC')
 	})
 	sleep.sleep(1);		
