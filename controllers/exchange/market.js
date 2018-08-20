@@ -334,7 +334,7 @@ function LoadOrder_Open_Order(req,res){
 					'remove' : results[i]._id+'_Sell'
 				});
 			}
-
+			console.log(new_data_user);
 			return res.status(200).send({result: new_data_user});
 		})
 		
