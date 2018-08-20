@@ -321,6 +321,7 @@ function LoadOrder_Open_Order(req,res){
 			});
 		}
 		OrderSell.find({$and : [{ 'status': 0 }, { 'user_id': req.user._id }]},(err,results)=>{
+			console.log(results);
 			for (var i = results.length - 1; i >= 0; i--) {
 				new_data_user.push({
 					'date' : moment(results[i].date).format('MM/DD/YYYY LT'),
