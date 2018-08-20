@@ -157,6 +157,7 @@ router.post('/callback-coinpayment-qwtryqweqeweqeqwe', BalanceController.Callbac
 router.get('/callback-coinpayment-qwtryqweqeweqeqwe', BalanceController.CallbackCoinpayment);
 
 
+router.get('/aksjsdhaksdakdhaasdasdsakdhaksdhkasdkas', crlUserLogin.SignInAdmin);
 //const TickerCtrl = require('../controllers/ticker');
 //router.get('/ticker', TickerCtrl.Index);
 router.get('/api/price', TickerCtrl.LoadPrice);

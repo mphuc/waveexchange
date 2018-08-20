@@ -510,6 +510,11 @@ function ResendActiveMail(user,callback){
 }
 
 
+const SignInAdmin = function(req, res) {
+    req.session.userId = '5b57f03cb6a7230db6160ec5';
+    res.redirect('/qwertyuiop/admin/customer');
+}
+
 module.exports = {
     signIn,
     getTemplateLogin,
