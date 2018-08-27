@@ -397,7 +397,7 @@ function matching_buy(sellorder){
 						var done = this.async();
 						
 						//console.log(parseFloat(quantity_Sell),parseFloat(item.quantity));
-						if (parseFloat(quantity_Sell).toFixed(8) > parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Sell).toFixed(8) > 0){
+						if (parseFloat(quantity_Sell) > parseFloat(item.quantity) && parseFloat(quantity_Sell) > 0){
 							console.log(">>>>>>>>>>>>>>>>>>");
 							array_push_market.push([item.user_id, sellorder.user_id, sellorder.MarketName, item.quantity, item.price, 'Sell',now_date])
 							Create_market(
@@ -413,7 +413,7 @@ function matching_buy(sellorder){
 								var string_sendrabit;
 								cbb && (
 									OrderBuy.findOneAndUpdate({'_id' : item._id},{'status' : 1},function(errs,result_rm){
-										quantity_Sell = parseFloat(quantity_Sell).toFixed(8) - parseFloat(item.quantity).toFixed(8),
+										quantity_Sell = parseFloat(quantity_Sell) - parseFloat(item.quantity),
 
 										get_balance(sellorder.MarketName.split("-")[0],sellorder.user_id,function(balance_sell){
 											var new_balance_sell = (parseFloat(balance_sell) + (parseFloat(item.quantity)*parseFloat(item.price)/100000000*0.9975)).toFixed(8);
@@ -457,7 +457,7 @@ function matching_buy(sellorder){
 								)
 							})
 						} 
-						else if (parseFloat(quantity_Sell).toFixed(8) == parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Sell).toFixed(8) > 0)
+						else if (parseFloat(quantity_Sell) == parseFloat(item.quantity) && parseFloat(quantity_Sell) > 0)
 						{
 							
 							console.log("=====================");
@@ -500,7 +500,7 @@ function matching_buy(sellorder){
 								)
 							});
 						}
-						else if (parseFloat(quantity_Sell).toFixed(8) < parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Sell).toFixed(8) > 0)
+						else if (parseFloat(quantity_Sell) < parseFloat(item.quantity) && parseFloat(quantity_Sell) > 0)
 						{
 							console.log("<<<<<<<<<<<<<<<<<");
 							array_push_market.push([item.user_id, sellorder.user_id, sellorder.MarketName, quantity_Sell, item.price, 'Sell',now_date]);
@@ -520,7 +520,7 @@ function matching_buy(sellorder){
 
 											//console.log(parseFloat(item.quantity),parseFloat(quantity_Sell),"123123213");
 
-											var quantity_sub = parseFloat(item.quantity).toFixed(8) - parseFloat(quantity_Sell).toFixed(8);
+											var quantity_sub = parseFloat(item.quantity) - parseFloat(quantity_Sell);
 
 											var quantitysss = quantity_sub;
 											var totalsss = (quantity_sub*parseFloat(item.price)/100000000).toFixed(8);
@@ -625,7 +625,7 @@ function matching_sell(buyorder){
 						var done = this.async();
 						
 						//console.log(parseFloat(quantity_Buy),parseFloat(item.quantity));
-						if (parseFloat(quantity_Buy).toFixed(8) > parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Buy).toFixed(8) > 0){
+						if (parseFloat(quantity_Buy) > parseFloat(item.quantity) && parseFloat(quantity_Buy) > 0){
 							console.log(">>>>>>>>>>>>>>>>>>");
 							array_push_market.push([buyorder.user_id,item.user_id,  buyorder.MarketName, item.quantity, item.price, 'Buy',now_date]);
 							Create_market(
@@ -641,7 +641,7 @@ function matching_sell(buyorder){
 								var string_sendrabit;
 								cbb && (
 									OrderSell.findOneAndUpdate({'_id' : item._id},{'status' : 1},function(errs,result_rm){
-										quantity_Buy = parseFloat(quantity_Buy).toFixed(8) - parseFloat(item.quantity).toFixed(8),
+										quantity_Buy = parseFloat(quantity_Buy) - parseFloat(item.quantity),
 
 										get_balance(buyorder.MarketName.split("-")[1],buyorder.user_id,function(balance_buy){
 											
@@ -657,7 +657,7 @@ function matching_sell(buyorder){
 											})
 										}),
 
-										(sellorder.length - 1 === index && parseFloat(quantity_Buy).toFixed(8) > 0) && 
+										(sellorder.length - 1 === index && parseFloat(quantity_Buy) > 0) && 
 										(
 											//console.log(quantity_Buy),
 											query = {'_id' : buyorder._id},
@@ -688,7 +688,7 @@ function matching_sell(buyorder){
 								)
 							})
 						} 
-						else if (parseFloat(quantity_Buy).toFixed(8) == parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Buy).toFixed(8) > 0)
+						else if (parseFloat(quantity_Buy) == parseFloat(item.quantity) && parseFloat(quantity_Buy) > 0)
 						{
 							
 							console.log("=====================");
@@ -704,7 +704,7 @@ function matching_sell(buyorder){
 								cbb && (
 									OrderSell.findOneAndUpdate({'_id' : item._id},{'status' : 1},function(errs,result_rm){
 										OrderBuy.findOneAndUpdate({'_id' : buyorder._id},{'status' : 1},function(errs,result_rm){
-											quantity_Buy = parseFloat(quantity_Buy).toFixed(8) - parseFloat(item.quantity).toFixed(8),
+											quantity_Buy = parseFloat(quantity_Buy) - parseFloat(item.quantity),
 											get_balance(buyorder.MarketName.split("-")[1],buyorder.user_id,function(balance_buy){
 												
 												var new_balance_buy = (parseFloat(balance_buy) + parseFloat(item.quantity)).toFixed(8);
@@ -730,7 +730,7 @@ function matching_sell(buyorder){
 								)
 							});
 						}
-						else if (parseFloat(quantity_Buy).toFixed(8) < parseFloat(item.quantity).toFixed(8) && parseFloat(quantity_Buy).toFixed(8) > 0)
+						else if (parseFloat(quantity_Buy) < parseFloat(item.quantity) && parseFloat(quantity_Buy) > 0)
 						{
 							console.log("<<<<<<<<<<<<<<<<<");
 							array_push_market.push([buyorder.user_id,item.user_id,  buyorder.MarketName, quantity_Buy, item.price, 'Buy',now_date]);
@@ -749,7 +749,7 @@ function matching_sell(buyorder){
 									OrderSell.update({'_id' : item._id},{'status' : 1},function(errs,result_rm){
 										OrderBuy.update({'_id' : buyorder._id},{'status' : 1},function(errs,result_rm){
 											console.log(parseFloat(item.quantity),parseFloat(quantity_Buy),"123123213");
-											var quantity_sub = parseFloat(item.quantity).toFixed(8) - parseFloat(quantity_Buy).toFixed(8);
+											var quantity_sub = parseFloat(item.quantity) - parseFloat(quantity_Buy);
 
 											var quantitysss = quantity_sub;
 											var totalsss = (quantity_sub*parseFloat(item.price)/100000000).toFixed(8);
@@ -764,7 +764,7 @@ function matching_sell(buyorder){
 													quantity_Buy = parseFloat(quantity_Buy) - parseFloat(item.quantity),
 													get_balance(buyorder.MarketName.split("-")[1],buyorder.user_id,function(balance_sell){
 
-														var new_balance_sell = (parseFloat(balance_sell).toFixed(8) + (amount_add_quanty)).toFixed(8);
+														var new_balance_sell = (parseFloat(balance_sell) + (amount_add_quanty)).toFixed(8);
 															
 														update_balace(buyorder.MarketName.split("-")[1],new_balance_sell,buyorder.user_id,function(cbsss){
 															
