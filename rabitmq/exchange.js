@@ -657,7 +657,7 @@ function matching_sell(buyorder){
 											})
 										}),
 
-										(sellorder.length - 1 === index && parseFloat(quantity_Buy).toFixed(8).toFixed(8) > 0) && 
+										(sellorder.length - 1 === index && parseFloat(quantity_Buy).toFixed(8) > 0) && 
 										(
 											//console.log(quantity_Buy),
 											query = {'_id' : buyorder._id},
