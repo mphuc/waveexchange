@@ -213,8 +213,8 @@ var get_balance =function(name,user_id,callback){
 
 function get_coin_details(name,callback){
 	var data = {};
-	if (name === 'BTC') { data.confirmations = 3,  data.free = 100000, data.client = BTCclient };
-	if (name === 'ETH') { data.confirmations = 3,  data.free = 100000, data.client =  BTGclient };
+	if (name === 'BTC') { data.confirmations = 3,  data.free = 500000, data.client = BTCclient };
+	if (name === 'ETH') { data.confirmations = 3,  data.free = 500000, data.client =  BTGclient };
 	if (name === 'WAVE') { data.confirmations = 3,  data.free = 3000000, data.client =  STCclient };
 	callback(data);
 }

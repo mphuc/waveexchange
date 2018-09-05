@@ -81,8 +81,8 @@ function process_withdraw(name, string_receiverabit,callback){
 
 	getUser(id_user,function(user){
 		if (user) {
-			if (name === 'BTC') { numWallet = user.balance.bitcoin_wallet.available ,  free = 100000 };
-			if (name === 'ETH') { numWallet = user.balance.ethereum_wallet.available ,  free = 100000 };
+			if (name === 'BTC') { numWallet = user.balance.bitcoin_wallet.available ,  free = 500000 };
+			if (name === 'ETH') { numWallet = user.balance.ethereum_wallet.available ,  free = 500000 };
 			if (name === 'WAVE') { numWallet = user.balance.coin_wallet.available ,  free = 300000 };
 			var ast_balance = parseFloat(numWallet);
 			if (parseFloat(ast_balance) < (parseFloat(amount)+ parseFloat(free))) {

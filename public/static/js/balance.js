@@ -430,13 +430,13 @@ $(function(){
 
     $('#modalWithdrawBTC #amount').on('input propertychange',function(){
          $('#modalWithdrawBTC #amount_withdraw').val(
-            ((($('#modalWithdrawBTC #amount').val() * 100000000) - (0.001 * 100000000)) / 100000000).toFixed(8)
+            ((($('#modalWithdrawBTC #amount').val() * 100000000) - (0.005 * 100000000)) / 100000000).toFixed(8)
         );
     });
 
     $('#modalWithdrawETH #amount').on('input propertychange',function(){
         $('#modalWithdrawETH #amount_withdraw').val(
-            ((($('#modalWithdrawETH #amount').val() * 100000000) - (0.001 * 100000000)) / 100000000).toFixed(8)
+            ((($('#modalWithdrawETH #amount').val() * 100000000) - (0.005 * 100000000)) / 100000000).toFixed(8)
         );
     });
 
