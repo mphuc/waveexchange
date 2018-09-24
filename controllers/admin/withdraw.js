@@ -182,7 +182,7 @@ function WithdrawSubmit(req, res){
 				}
 				else
 				{
-					ClientCoinpayment.createWithdrawal({'currency' : data.type, 'amount' : parseFloat(data.amount)/10000000, 'address': data.wallet},function(errs,results){
+					ClientCoinpayment.createWithdrawal({'currency' : data.type, 'amount' : parseFloat(data.amount)/100000000, 'address': data.wallet},function(errs,results){
 						if (!errs && results)
 						{
 							Withdraw.update({'_id' :id}, { $set : {'id_withdraw' :results.id,'txid' : 'Pending', 'status' : 1} }, function(err, data){
